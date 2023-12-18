@@ -9,10 +9,10 @@
 
 ## Exemplos
 ```
-docs - Adição no {nome-do-arquivo}, o que foi adicionado"
+"docs - Adição do/no {nome-do-arquivo}, o que foi adicionado"
 ```
 ```
-code - Adição no {nome-do-arquivo}, o que foi adicionado"
+"code - Adição do/no {nome-do-arquivo}, o que foi adicionado"
 ```
 ```
 "fix docs - Alteração no {nome-do-arquivo}, o que foi alterado" 
