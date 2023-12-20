@@ -16,4 +16,6 @@ Com o objetivo de promover aprendizado sobre Python, utilizarei esse repositóri
 - [Intro to Python for Computer Science and Data Science: Learning to Program with Ai, Big Data and the Cloud](https://www.amazon.com.br/Intro-Python-Computer-Science-Data/dp/0135404673/ref=sr_1_1?qid=1702740462&refinements=p_lbr_books_authors_browse-bin%3AH.M.+Deitel&s=books&sr=1-1&ufe=app_do%3Aamzn1.fos.25548f35-0de7-44b3-b28e-0f56f3f96147)
 
 ### Sites Relacionados
-- [W3Schools](https://www.w3schools.com/python/default.asp)
+- [Python Documentation](https://www.python.org/doc/)
+- [Python Brasil](https://python.org.br/)
+- [W3Schools - Python Tutorial](https://www.w3schools.com/python/default.asp)
