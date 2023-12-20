@@ -8,7 +8,7 @@
 # so they will be Strings.
 value1 = input("Enter first Integer:\n")
 
-value2 = input("Enter first Integer:\n")
+value2 = input("Enter Second Integer:\n")
 
 # the misunderstanding in print is just concatenation instead of summation.
 # It is not possible to add Strings using the + symbol

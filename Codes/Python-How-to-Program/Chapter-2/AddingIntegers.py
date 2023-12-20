@@ -7,7 +7,7 @@
 integer1 = input("Enter first Integer:\n")  # prompt
 integer1 = int(integer1)  # typecast to convert String in Integer.
 
-integer2 = input("Enter first Integer:\n")  # prompt
+integer2 = input("Enter Second Integer:\n")  # prompt
 integer2 = int(integer2)  # typecast to convert String in Integer.
 
 # in the figure "sum" is used as the variable name,however sum is
