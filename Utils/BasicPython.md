@@ -120,6 +120,96 @@ The integers are first converted into binary and then operations are performed o
 |`and`| Logical AND |
 |`or`| Logical OR |
 
+## Control Structures
+
+### Sequential statements ( Sequence Structure )
+
+Sequential instructions are the most used type of control structure, where instructions are executed one after the other, following the standard code flow.
+
+example:
+~~~python
+>>> a = 5
+>>> b = 6
+>>> print(a + b)
+11
+~~~
+
+### Condicional Statements ( Selection Structure )
+
+The selection statement allows a program to test several conditions and execute instructions based on which condition is true. This is used for decisions and branches
+
+#### - <b>if</b> Statement
+
+The <b>if</b> statement is used for conditional execution:
+
+~~~
+if_stmt ::=  "if" assignment_expression ":" suite
+             ("elif" assignment_expression ":" suite)*
+             ["else" ":" suite]
+~~~
+
+It selects exactly one of the suites by evaluating the expressions one by one until one is found to be <b>true</b>;  then that suite is executed. If all expressions are <b>false</b>, the suite of the <b>else</b> clause, if present, is executed.
+
+#### - <b>match</b> Statement
+The <b>match</b> statement is used for pattern matching. Syntax:
+
+~~~
+match_stmt   ::=  'match' subject_expr ":" NEWLINE INDENT case_block+ DEDENT
+subject_expr ::=  star_named_expression "," star_named_expressions?
+                  | named_expression
+case_block   ::=  'case' patterns [guard] ":" block
+~~~
+
+>**_Note:_** This section uses single quotes to denote soft keywords.
+
+Pattern matching takes a pattern as input (following case) and a subject value (following match). The pattern (which may contain subpatterns) is matched against the subject value. The outcomes are:
+
+* A match success or failure (also termed a pattern success or failure).
+
+* Possible binding of matched values to a name.
+
+### Loop Statements ( Repetition Structure )
+
+A repetition statement is used to repeat a group(block) of programming instructions. This is used for looping in code.
+In Python we have the determined loop (for) and the indeterminate loop (while).
+
+#### - <b>while</b> statement
+
+The <b>while</b> statement is used for repeated execution as long as an expression is true:
+
+~~~
+while_stmt ::=  "while" assignment_expression ":" suite
+                ["else" ":" suite]
+~~~
+
+This repeatedly tests the expression and, if it is <b>true</b>, executes the first suite; if the expression is <b>false</b> (which may be the first time it is tested) the suite of the <b>else</b> clause, if present, is executed and the loop terminates.
+
+A <b>break</b> statement executed in the first suite terminates the loop without executing the else clause’s suite. A <b>continue</b> statement executed in the first suite skips the rest of the suite and goes back to testing the expression.
+
+#### - <b>for</b> statement
+
+The <b>for</b> statement is used to iterate over the elements of a sequence (such as a string, tuple or list) or other iterable object:
+
+~~~
+for_stmt ::=  "for" target_list "in" starred_list ":" suite
+              ["else" ":" suite]
+~~~
+The starred_list expression is evaluated once; it should yield an iterable object. An iterator is created for that iterable. The first item provided by the iterator is then assigned to the target list using the standard rules for assignments, and the suite is executed. This repeats for each item provided by the iterator. When the iterator is exhausted, the suite in the else clause, if present, is executed, and the loop terminates.
+
+ A <b>break</b> statement executed in the first suite terminates the loop without executing the else clause’s suite. A <b>continue</b> statement executed in the first suite skips the rest of the suite and continues with the next item, or with the else clause if there is no next item.
+
+The for-loop makes assignments to the variables in the target list. This overwrites all previous assignments to those variables including those made in the suite of the for-loop:
+
+~~~python
+for i in range(10):
+    print(i)
+    i = 5           # this will not affect the for-loop
+                    # because i will be overwritten with the next
+                    # index in the range
+~~~
+
+Names in the target list are not deleted when the loop is finished, but if the sequence is empty, they will not have been assigned to at all by the loop. Hint: the built-in type range() represents immutable arithmetic sequences of integers. For instance, iterating range(3) successively yields 0, 1, and then 2.
+
 ## Python Collections (Arrays)
 There are four collection data types in the Python programming language:
 
@@ -286,8 +376,18 @@ Example of formating float value limit the decimal places that will be displayed
 ~~~
 
 ### Template Strings (Standard Library)
+Template is a class from Python’s built-in string module. To use it, you need to import the class. Overall, it is a simple and more limited method than the others, but it fulfills the necessary role.
 
- 
+simple interpolation example:
+~~~python
+from string import Template
+
+text = Template("Hello, $name!")
+print(text.substitute(name = "Arthur"))
+~~~
+
+### Reference image for choose of String Formatting
+![Alt text](image.png)
 
 ## References
 - [W3schools tutorial python](https://www.w3schools.com/python/default.asp)
@@ -295,3 +395,5 @@ Example of formating float value limit the decimal places that will be displayed
 - [documentation string formatting](https://docs.python.org/3/library/stdtypes.html#printf-style-string-formatting)
 - [Article "Python String Formatting Best Practices"](https://realpython.com/python-string-formatting/)
 - [Content about operators in Python](https://www.geeksforgeeks.org/python-operators/)
+- [Content about Control Flow Statements](https://www.educative.io/answers/what-are-control-flow-statements-in-python)
+- [Compound Statements documentation](https://docs.python.org/3/reference/compound_stmts.html)
