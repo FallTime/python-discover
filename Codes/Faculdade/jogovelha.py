@@ -2,26 +2,49 @@ from random import choice
 
 
 def cpu_aleatoria():
-    return choice(range(0, 10))
-
-
-def cpu_inexperiente():
-    global contador
-    contador += 1
-    return contador
+    return choice(range(1, 10))
 
 
 def cpu_campeao():
-    pass
+    combinacoes_vencedoras = [
+        [1, 2, 3], [4, 5, 6], [7, 8, 9],  # Linhas
+        [1, 4, 7], [2, 5, 8], [3, 6, 9],  # Colunas
+        [1, 5, 9], [3, 5, 7]  # Diagonais
+    ]
 
+    if tabuleiro[5] == 0:
+        return 5
+
+    if tabuleiro[0] >= 3:
+        for combinacao in combinacoes_vencedoras:
+            soma = sum(tabuleiro[i] for i in combinacao)
+            if soma == 2:
+                for i in combinacao:
+                    if tabuleiro[i] == 0:
+                        return int(i)
+            elif soma == -2:
+                for i in combinacao:
+                    if tabuleiro[i] == 0:
+                        return int(i)
+
+    if tabuleiro[1] == 0:
+        return 1
+    elif tabuleiro[9] == 0:
+        return 9
+    elif tabuleiro[7] == 0:
+        return 7
+    elif tabuleiro[3] == 0:
+        return 3
+    else:
+        for i in range(1, 10):
+            if tabuleiro[i] == 0:
+                return int(i)
 
 def cpu(escolha):
     match escolha:
         case 1:
-            return cpu_inexperiente()
-        case 2:
             return cpu_aleatoria()
-        case 3:
+        case 2:
             return cpu_campeao()
 
 
@@ -33,9 +56,6 @@ def selecionar_cpu(opcao):
             return False
         case 2:
             cpu_escolha = 2
-            return False
-        case 3:
-            cpu_escolha = 3
             return False
         case _:
             print("Opção inválida!")
@@ -52,8 +72,33 @@ def numero_jogos(quantidade):
 
 
 def resultado_jogo():
-    text = "Velha" if tabuleiro[0] == 9 else "X venceu" if jogador_vencedor == 1 else "O Venceu"
-    return text
+    if tabuleiro[0] == 9:
+        print("\nVelha")
+        return 0
+    elif jogador_vencedor == 1:
+        print("\nX venceu")
+        return 1
+    else:
+        print("\nO Venceu")
+        return -1
+
+
+def relatorio_partida(tabuleiro, num_partida, resultado):
+    global contador_vitoria1, contador_vitoria2, contador_empate
+    add = []
+    if resultado == 0:
+        contador_empate += 1
+    elif resultado == 1:
+        contador_vitoria1 += 1
+    else:
+        contador_vitoria2 += 1
+
+    add.append(num_partida)
+    add.append(tabuleiro.copy())
+    add.append(contador_vitoria1)
+    add.append(contador_vitoria2)
+    add.append(contador_empate)
+    return add
 
 
 def zerar_tabuleiro():
@@ -63,36 +108,35 @@ def zerar_tabuleiro():
 
 def main(opcao):
     conta = 0
-    global tabuleiro, contador
-    while numero_jogos(int(input("Insira o número de jogos:"))):
-        pass
+    global tabuleiro, jogador_turno
 
     match opcao:
         # player vs player 
         case 1:
+            while numero_jogos(int(input("Insira o número de jogos:"))):
+                pass
             while conta < partidas:
-                while estado(tabuleiro) and tabuleiro[0] < 9:
+                while verificar_vitoria(tabuleiro) and tabuleiro[0] < 9:
                     exibirtab(tabuleiro)
                     if jogada(tabuleiro):
                         tabuleiro[0] += 1
 
                 conta += 1
                 exibirtab(tabuleiro)
-                print('\n\n', resultado_jogo())
-                relatorio.append(resultado_jogo())
+                relatorio.append(relatorio_partida(tabuleiro, conta, resultado_jogo()))
                 tabuleiro = zerar_tabuleiro()
-                if cpu_escolha == 1:
-                    contador = 0
+                jogador_turno = True
 
             return False
         # player vs cpu
         case 2:
-
-            print("\nSeleção de CPU:\n1 - Inexperiente\n2 - Aleatório\n3 - Campeão")
+            while numero_jogos(int(input("Insira o número de jogos:"))):
+                pass
+            print("\nSeleção de CPU:\n1 - Aleatório\n2 - Campeão")
             while selecionar_cpu(int(input("Insira a opção:"))):
                 pass
             while conta < partidas:
-                while estado(tabuleiro) and tabuleiro[0] < 9:
+                while verificar_vitoria(tabuleiro) and tabuleiro[0] < 9:
                     exibirtab(tabuleiro)
                     if jogador_turno:
                         if jogada(tabuleiro):
@@ -103,29 +147,41 @@ def main(opcao):
 
                 conta += 1
                 exibirtab(tabuleiro)
-                print('\n\n', resultado_jogo())
-                relatorio.append(resultado_jogo())
+                relatorio.append(relatorio_partida(tabuleiro, conta, resultado_jogo()))
                 tabuleiro = zerar_tabuleiro()
+                jogador_turno = True
 
             return False
         # cpu vs cpu
         case 3:
-            print("\nSeleção da CPU:\n1 - Inexperiente\n2 - Aleatório\n3 - Campeão")
+            while numero_jogos(int(input("Insira o número de jogos:"))):
+                pass
+            print("\nSeleção da CPU:\n1 - Aleatório\n2 - Campeão")
             while selecionar_cpu(int(input("Insira a opção:"))):
                 pass
+            cpu_escolha1 = cpu_escolha
+            print(cpu_escolha1)
+            print("\nSeleção da CPU:\n1 - Aleatório\n2 - Campeão")
+            while selecionar_cpu(int(input("Insira a opção:"))):
+                pass
+            cpu_escolha2 = cpu_escolha
+            print(cpu_escolha2)
+
             while conta < partidas:
-                while estado(tabuleiro) and tabuleiro[0] < 9:
+                while verificar_vitoria(tabuleiro) and tabuleiro[0] < 9:
                     exibirtab(tabuleiro)
-                    if jogada_cpu(tabuleiro, cpu(cpu_escolha)):
-                        tabuleiro[0] += 1
+                    if jogador_turno:
+                        if jogada_cpu(tabuleiro, cpu(cpu_escolha1)):
+                            tabuleiro[0] += 1
+                    else:
+                        if jogada_cpu(tabuleiro, cpu(cpu_escolha2)):
+                            tabuleiro[0] += 1
 
                 conta += 1
                 exibirtab(tabuleiro)
-                print('\n\n', resultado_jogo())
-                relatorio.append(resultado_jogo())
+                relatorio.append(relatorio_partida(tabuleiro, conta, resultado_jogo()))
                 tabuleiro = zerar_tabuleiro()
-                if cpu_escolha == 1:
-                    contador = 0
+                jogador_turno = True
 
             return False
         # default case
@@ -193,42 +249,36 @@ def jogada_cpu(tabuleiro, casa):
         return False
 
 
-def estado(tabuleiro):
-    # victory cases 123,147,159,528,546,537,987,963
+def verificar_vitoria(tabuleiro):
     global jogador_vencedor
+    combinacoes_vencedoras = [
+        [1, 2, 3], [4, 5, 6], [7, 8, 9],  # Linhas
+        [1, 4, 7], [2, 5, 8], [3, 6, 9],  # Colunas
+        [1, 5, 9], [3, 5, 7]  # Diagonais
+    ]
 
-    if tabuleiro[1] + tabuleiro[2] + tabuleiro[3] == 3 or \
-            tabuleiro[1] + tabuleiro[4] + tabuleiro[7] == 3 or \
-            tabuleiro[1] + tabuleiro[5] + tabuleiro[9] == 3 or \
-            tabuleiro[5] + tabuleiro[2] + tabuleiro[8] == 3 or \
-            tabuleiro[5] + tabuleiro[4] + tabuleiro[6] == 3 or \
-            tabuleiro[5] + tabuleiro[3] + tabuleiro[7] == 3 or \
-            tabuleiro[9] + tabuleiro[8] + tabuleiro[7] == 3 or \
-            tabuleiro[9] + tabuleiro[6] + tabuleiro[3] == 3:
-        jogador_vencedor = 1
-        return False
-
-    elif tabuleiro[1] + tabuleiro[2] + tabuleiro[3] == -3 or \
-            tabuleiro[1] + tabuleiro[4] + tabuleiro[7] == -3 or \
-            tabuleiro[1] + tabuleiro[5] + tabuleiro[9] == -3 or \
-            tabuleiro[5] + tabuleiro[2] + tabuleiro[8] == -3 or \
-            tabuleiro[5] + tabuleiro[4] + tabuleiro[6] == -3 or \
-            tabuleiro[5] + tabuleiro[3] + tabuleiro[7] == -3 or \
-            tabuleiro[9] + tabuleiro[8] + tabuleiro[7] == -3 or \
-            tabuleiro[9] + tabuleiro[6] + tabuleiro[3] == -3:
-        jogador_vencedor = -1
-        return False
+    for combinacao in combinacoes_vencedoras:
+        soma = sum(tabuleiro[i] for i in combinacao)
+        if soma == 3:
+            jogador_vencedor = 1
+            return False
+        elif soma == -3:
+            jogador_vencedor = -1
+            return False
 
     return True
 
 
 relatorio = []
 partidas = 0
-contador = 0
 jogador_turno = True
 jogador_vencedor = 0
 cpu_escolha = 0
 tabuleiro = zerar_tabuleiro()
+contador_vitoria1 = 0
+contador_vitoria2 = 0
+contador_empate = 0
+
 
 print("Modos de Jogo:\n1 - Jogador VS Jogador\n2 - Jogador VS CPU\n3 - CPU VS CPU")
 while main(int(input("Insira a opção:"))):
