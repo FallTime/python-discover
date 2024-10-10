@@ -1,4 +1,5 @@
 from random import choice
+import csv
 
 
 def cpu_aleatoria():
@@ -69,20 +70,20 @@ def cpu_campeao():
             for combinacao in pequena_diagonal:
                 soma = sum(tabuleiro[i] for i in combinacao)
                 if soma == 2:
-                        if tabuleiro[resposta[pequena_diagonal.index(combinacao)]] == 0:
-                            return resposta[pequena_diagonal.index(combinacao)]
+                    if tabuleiro[resposta[pequena_diagonal.index(combinacao)]] == 0:
+                        return resposta[pequena_diagonal.index(combinacao)]
 
             for combinacao in golpe_horizontal:
                 soma = sum(tabuleiro[i] for i in combinacao)
                 if soma == 2:
-                        if tabuleiro[resposta_h[golpe_horizontal.index(combinacao)]] == 0:
-                            return resposta_h[golpe_horizontal.index(combinacao)]
+                    if tabuleiro[resposta_h[golpe_horizontal.index(combinacao)]] == 0:
+                        return resposta_h[golpe_horizontal.index(combinacao)]
 
             for combinacao in golpe_vertical:
                 soma = sum(tabuleiro[i] for i in combinacao)
                 if soma == 2:
-                        if tabuleiro[resposta_v[golpe_vertical.index(combinacao)]] == 0:
-                            return resposta_v[golpe_vertical.index(combinacao)]
+                    if tabuleiro[resposta_v[golpe_vertical.index(combinacao)]] == 0:
+                        return resposta_v[golpe_vertical.index(combinacao)]
                     
             for combinacao in grande_diagonal:
                 soma = sum(tabuleiro[i] for i in combinacao)
@@ -100,7 +101,6 @@ def cpu_campeao():
             return 3
         if tabuleiro[7] == 0:
             return 7
-
 
 
 def cpu(escolha):
@@ -356,3 +356,22 @@ while main(int(input("Insira a opção:"))):
     pass
 
 print(relatorio)
+
+
+with open('relatorio.csv', mode='w', newline='') as file:
+    campos_header = [
+        'Numero da Partida', 'Tabuleiro', 'Resultado',
+        'Vitoria do Primeiro', 'Velha', 'Vitoria do Segundo'
+    ]
+    writer = csv.DictWriter(file, fieldnames=campos_header)
+
+    writer.writeheader()
+    for i in range(len(relatorio)):
+        writer.writerow({
+            'Numero da Partida': relatorio[i][0],
+            'Tabuleiro': relatorio[i][1],
+            'Resultado': relatorio[i][2],
+            'Vitoria do Primeiro': relatorio[i][3],
+            'Velha': relatorio[i][4],
+            'Vitoria do Segundo': relatorio[i][5]
+        })
