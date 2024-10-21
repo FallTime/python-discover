@@ -1,4 +1,5 @@
 from random import choice
+from cpuinteligente import CpuInteligente
 import csv
 
 
@@ -103,12 +104,19 @@ def cpu_campeao():
             return 7
 
 
+def cpu_inteligente():
+
+    return ai.escolher_jogada(ai.analisa_tabuleiro(tabuleiro[1:10]), jogador_turno)
+
+
 def cpu(escolha):
     match escolha:
         case 1:
             return cpu_aleatoria()
         case 2:
             return cpu_campeao()
+        case 3:
+            return cpu_inteligente()
 
 
 def selecionar_cpu(opcao):
@@ -119,6 +127,9 @@ def selecionar_cpu(opcao):
             return False
         case 2:
             cpu_escolha = 2
+            return False
+        case 3:
+            cpu_escolha = 3
             return False
         case _:
             print("Opção inválida!")
@@ -198,7 +209,7 @@ def main(opcao):
         case 2:
             while numero_jogos(int(input("Insira o número de jogos:"))):
                 pass
-            print("\nSeleção de CPU:\n1 - Aleatório\n2 - Campeão")
+            print("\nSeleção de CPU:\n1 - Aleatório\n2 - Campeão\n3 - Inteligente")
             while selecionar_cpu(int(input("Insira a opção:"))):
                 pass
             while conta < partidas:
@@ -226,12 +237,12 @@ def main(opcao):
         case 3:
             while numero_jogos(int(input("Insira o número de jogos:"))):
                 pass
-            print("\nSeleção da CPU:\n1 - Aleatório\n2 - Campeão")
+            print("\nSeleção da CPU:\n1 - Aleatório\n2 - Campeão\n3 - Inteligente")
             while selecionar_cpu(int(input("Insira a opção:"))):
                 pass
             cpu_escolha1 = cpu_escolha
             print(cpu_escolha1)
-            print("\nSeleção da CPU:\n1 - Aleatório\n2 - Campeão")
+            print("\nSeleção da CPU:\n1 - Aleatório\n2 - Campeão\n3 - Inteligente")
             while selecionar_cpu(int(input("Insira a opção:"))):
                 pass
             cpu_escolha2 = cpu_escolha
@@ -340,6 +351,7 @@ def verificar_vitoria(tabuleiro):
     return True
 
 
+ai = CpuInteligente()
 relatorio = []
 partidas = 0
 jogador_turno = True
