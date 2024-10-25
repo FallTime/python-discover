@@ -14,7 +14,9 @@ class LinkedList:
     def append(self, pos, adv_pos, qualidade):
         # antes de criar um no verifica se já existe um igual, não pode haver duplicatas como irmãos
         if self.existe(pos, adv_pos, self.head):
-            raise ValueError("já existe um no na cabeça com essa posição e adv_pos.")
+            no_existente = self.buscar_no(pos, adv_pos)
+            no_existente.qualidade += qualidade
+            return 0
 
         novo_no = Node(pos, adv_pos, qualidade)
 
@@ -33,36 +35,36 @@ class LinkedList:
         ultimo_no.next = novo_no
         self.sort()
 
-    def append_child(self, pos_pai, pos, adv_pos, qualidade):
+    def append_child(self, no_pai, pos, adv_pos, qualidade):
         if adv_pos == 0:
             raise ValueError("adv_pos não pode ser 0 para nós filhos")
-        if pos_pai == pos:
+
+        if no_pai is None:
+            raise ValueError("No sem pai")
+
+        if no_pai.posicao == pos:
             raise ValueError("O filho não pode ter a mesma posição do pai")
 
-        aux = self.head
 
-        while aux:
-            if aux.pos == pos_pai:
-                if self.existe(pos, adv_pos, aux):
-                    raise ValueError("já existe um no filho com essa posição e adv_pos.")
+        if self.existe(pos, adv_pos, no_pai.child):
+            no_existente = self.buscar_no(pos, adv_pos)
+            no_existente.qualidade += qualidade
+            return 0
 
-                novo_no = Node(pos, adv_pos, qualidade)
+        novo_no = Node(pos, adv_pos, qualidade)
 
-                if aux.child is None:
-                    aux.child = novo_no
-                    return 1
+        if no_pai.child is None:
+            no_pai.child = novo_no
+            return 1
 
-                else:
-                    ultimo_filho = aux.child
+        ultimo_filho = no_pai.child
+        while ultimo_filho.next:
+            ultimo_filho = ultimo_filho.next
+        ultimo_filho.next = novo_no
 
-                    while ultimo_filho.next:
-                        ultimo_filho = ultimo_filho.next
+        self.sort_children(no_pai)
+        return 2
 
-                    ultimo_filho.next = novo_no
-                    self.sort_children(aux)
-                    return 2
-            aux = aux.next
-        raise ValueError("No sem pai.")
 
     def sort(self):
         if self.head is None or self.head.next is None:
@@ -79,17 +81,6 @@ class LinkedList:
         # transfere a estrutura auxiliar para cabeça
         self.head = sorted_list
 
-    def sorted_insert(self, head, node):
-        if head is None or node.qualidade > head.qualidade:
-            node.next = head
-            return node
-        aux = head
-        while aux.next and aux.next.qualidade > node.qualidade:
-            aux = aux.next
-        node.next = aux.next
-        aux.next = node
-        return head
-
     def sort_children(self, no_pai):
         if no_pai.child is None or no_pai.child.next is None:
             return
@@ -101,15 +92,55 @@ class LinkedList:
             aux = proximo_no
         no_pai.child = sorted_children
 
+    def buscar_no(self, pos, adv_pos):
+        def buscar_recursivo(node, pos, adv_pos):
+            if node is None:
+                return None
+            if node.posicao == pos and node.adv_pos == adv_pos:
+                return node
+            result = buscar_recursivo(node.child, pos, adv_pos)
+            if result is not None:
+                return result
+            return buscar_recursivo(node.next, pos, adv_pos)
+
+        return buscar_recursivo(self.head, pos, adv_pos)
+
+    @staticmethod
+    def sorted_insert(head, node):
+        if head is None or node.qualidade > head.qualidade:
+            node.next = head
+            return node
+        aux = head
+        while aux.next and aux.next.qualidade > node.qualidade:
+            aux = aux.next
+        node.next = aux.next
+        aux.next = node
+        return head
+
     @staticmethod
     def existe(pos, adv_pos, lista):
         aux = lista
 
         while aux:
-            if aux.pos == pos and aux.adv_pos == adv_pos:
+            if aux.posicao == pos and aux.adv_pos == adv_pos:
                 return True
 
             aux = aux.next
 
         return False
+
+    def print_list(self):
+        def print_children(node, level):
+            child = node.child
+            while child:
+                print(
+                    f"{'  ' * level}Child - Posição: {child.posicao}, Adv_pos: {child.adv_pos}, Qualidade: {child.qualidade}")
+                print_children(child, level + 1)
+                child = child.next
+
+        aux = self.head
+        while aux:
+            print(f"Posição: {aux.posicao}, Adv_pos: {aux.adv_pos}, Qualidade: {aux.qualidade}")
+            print_children(aux, 1)
+            aux = aux.next
 

@@ -227,6 +227,8 @@ def main(opcao):
 
                 conta += 1
                 exibirtab(tabuleiro)
+                if cpu_escolha == 3:
+                    ai.qualificar_jogadas(resultado_jogo())
                 relatorio.append(relatorio_partida(tabuleiro, conta, resultado_jogo()))
                 tabuleiro = zerar_tabuleiro()
                 jogador_turno = True
@@ -261,6 +263,10 @@ def main(opcao):
                             tabuleiro[0] += 1
 
                 conta += 1
+                if cpu_escolha1 == 3:
+                    ai.qualificar_jogadas(resultado_jogo())
+                if cpu_escolha2 == 3:
+                    ai.qualificar_jogadas(resultado_jogo())
                 relatorio.append(relatorio_partida(tabuleiro, conta, resultado_jogo()))
                 tabuleiro = zerar_tabuleiro()
                 jogador_turno = True
