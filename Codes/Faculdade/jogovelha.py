@@ -105,8 +105,10 @@ def cpu_campeao():
 
 
 def cpu_inteligente():
-
-    return ai.escolher_jogada(ai.analisa_tabuleiro(tabuleiro[1:10]), jogador_turno)
+    if jogador_turno:
+        return aix.escolher_jogada(tabuleiro[1:10])
+    else:
+        return aio.escolher_jogada(tabuleiro[1:10])
 
 
 def cpu(escolha):
@@ -228,7 +230,7 @@ def main(opcao):
                 conta += 1
                 exibirtab(tabuleiro)
                 if cpu_escolha == 3:
-                    ai.qualificar_jogadas(resultado_jogo())
+                    aio.atualizar_ranks(resultado_jogo(), jogador_turno)
                 relatorio.append(relatorio_partida(tabuleiro, conta, resultado_jogo()))
                 tabuleiro = zerar_tabuleiro()
                 jogador_turno = True
@@ -264,9 +266,9 @@ def main(opcao):
 
                 conta += 1
                 if cpu_escolha1 == 3:
-                    ai.qualificar_jogadas(resultado_jogo())
+                    aix.atualizar_ranks(resultado_jogo(), jogador_turno)
                 if cpu_escolha2 == 3:
-                    ai.qualificar_jogadas(resultado_jogo())
+                    aio.atualizar_ranks(resultado_jogo(), jogador_turno)
                 relatorio.append(relatorio_partida(tabuleiro, conta, resultado_jogo()))
                 tabuleiro = zerar_tabuleiro()
                 jogador_turno = True
@@ -357,7 +359,8 @@ def verificar_vitoria(tabuleiro):
     return True
 
 
-ai = CpuInteligente()
+aix = CpuInteligente('databaseX.csv')
+aio = CpuInteligente('databaseO.csv')
 relatorio = []
 partidas = 0
 jogador_turno = True
