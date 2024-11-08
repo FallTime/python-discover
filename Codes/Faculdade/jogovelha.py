@@ -161,14 +161,16 @@ def resultado_jogo():
 
 
 def relatorio_partida(tabuleiro, num_partida, resultado):
-    global contador_vitoria1, contador_vitoria2, contador_empate
+    global contador_vitoria1, contador_vitoria2, contador_empate, ultima_derrota1, ultima_derrota2
     add = []
     if resultado == 0:
         contador_empate += 1
     elif resultado == 1:
         contador_vitoria1 += 1
+        ultima_derrota2 = num_partida
     else:
         contador_vitoria2 += 1
+        ultima_derrota1 = num_partida
 
     add.append(num_partida)
     add.append(tabuleiro.copy())
@@ -176,6 +178,8 @@ def relatorio_partida(tabuleiro, num_partida, resultado):
     add.append(contador_vitoria1)
     add.append(contador_empate)
     add.append(contador_vitoria2)
+    add.append(ultima_derrota1)
+    add.append(ultima_derrota2)
     return add
 
 
@@ -230,7 +234,7 @@ def main(opcao):
                 conta += 1
                 exibirtab(tabuleiro)
                 if cpu_escolha == 3:
-                    aio.atualizar_ranks(resultado_jogo(), jogador_turno)
+                    aio.atualizar_ranks(resultado_jogo(), 2)
                 relatorio.append(relatorio_partida(tabuleiro, conta, resultado_jogo()))
                 tabuleiro = zerar_tabuleiro()
                 jogador_turno = True
@@ -266,9 +270,9 @@ def main(opcao):
 
                 conta += 1
                 if cpu_escolha1 == 3:
-                    aix.atualizar_ranks(resultado_jogo(), jogador_turno)
+                    aix.atualizar_ranks(resultado_jogo(), 1)
                 if cpu_escolha2 == 3:
-                    aio.atualizar_ranks(resultado_jogo(), jogador_turno)
+                    aio.atualizar_ranks(resultado_jogo(), 2)
                 relatorio.append(relatorio_partida(tabuleiro, conta, resultado_jogo()))
                 tabuleiro = zerar_tabuleiro()
                 jogador_turno = True
@@ -370,7 +374,8 @@ tabuleiro = zerar_tabuleiro()
 contador_vitoria1 = 0
 contador_vitoria2 = 0
 contador_empate = 0
-
+ultima_derrota1 = 0
+ultima_derrota2 = 0
 
 print("Modos de Jogo:\n1 - Jogador VS Jogador\n2 - Jogador VS CPU\n3 - CPU VS CPU")
 while main(int(input("Insira a opção:"))):
@@ -378,11 +383,11 @@ while main(int(input("Insira a opção:"))):
 
 print(relatorio)
 
-
 with open('relatorio.csv', mode='w', newline='') as file:
     campos_header = [
         'Numero da Partida', 'Tabuleiro', 'Resultado',
-        'Vitoria do Primeiro', 'Velha', 'Vitoria do Segundo'
+        'Vitoria do Primeiro', 'Velha', 'Vitoria do Segundo',
+        'ultima derrota do primeiro','ultima derrota do segundo'
     ]
     writer = csv.DictWriter(file, fieldnames=campos_header)
 
@@ -394,5 +399,7 @@ with open('relatorio.csv', mode='w', newline='') as file:
             'Resultado': relatorio[i][2],
             'Vitoria do Primeiro': relatorio[i][3],
             'Velha': relatorio[i][4],
-            'Vitoria do Segundo': relatorio[i][5]
+            'Vitoria do Segundo': relatorio[i][5],
+            'ultima derrota do primeiro': relatorio[i][6],
+            'ultima derrota do segundo': relatorio[i][7]
         })

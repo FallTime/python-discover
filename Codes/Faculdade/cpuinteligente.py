@@ -32,8 +32,8 @@ class CpuInteligente:
         self.database.append({'rank': rank, 'tabuleiro': tabuleiro, 'posicao': posicao})
 
     def escolher_jogada(self, tabuleiro):
-        for jogada in sorted(self.database, key=lambda x: x['rank'], reverse=True):
-            if jogada['tabuleiro'] == tabuleiro:
+        for jogada in self.database:
+            if jogada['tabuleiro'] == tabuleiro and jogada['rank'] > 0:
                 self.jogadas_partida.append(jogada)
                 return jogada['posicao']
         posicoes_disponiveis = [i for i in range(1, 10) if tabuleiro[i-1] == 0]
@@ -42,18 +42,19 @@ class CpuInteligente:
         self.jogadas_partida.append({'rank': 0, 'tabuleiro': tabuleiro, 'posicao': jogada_aleatoria})
         return jogada_aleatoria
 
-    def atualizar_ranks(self, resultado, turno):
+    def atualizar_ranks(self, resultado, jogador):
+        count = 0
         for jogada in self.jogadas_partida:
-            if turno:
+            if jogador == 2:
                 if resultado == -1:
                     jogada['rank'] += 1
                 elif resultado == 1:
-                    jogada['rank'] -= 1
+                    jogada['rank'] -= 2
             else:
                 if resultado == 1:
                     jogada['rank'] += 1
-                elif resultado == 1:
-                    jogada['rank'] -= 1
+                elif resultado == -1:
+                    jogada['rank'] -= 2
         self.atualizar_jogada_no_csv()
         self.jogadas_partida = []
 
