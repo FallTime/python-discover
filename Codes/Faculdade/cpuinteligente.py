@@ -28,6 +28,7 @@ class CpuInteligente:
     def salvar_jogada(self, rank, tabuleiro, posicao):
         for jogada in self.database:
             if jogada['tabuleiro'] == tabuleiro and jogada['posicao'] == posicao:
+                jogada['rank'] = rank
                 return  # Não adiciona jogada duplicada
         self.database.append({'rank': rank, 'tabuleiro': tabuleiro, 'posicao': posicao})
 
@@ -43,18 +44,18 @@ class CpuInteligente:
         return jogada_aleatoria
 
     def atualizar_ranks(self, resultado, jogador):
-        count = 0
         for jogada in self.jogadas_partida:
             if jogador == 2:
                 if resultado == -1:
                     jogada['rank'] += 1
                 elif resultado == 1:
-                    jogada['rank'] -= 2
+                    jogada['rank'] -= 1
             else:
                 if resultado == 1:
                     jogada['rank'] += 1
                 elif resultado == -1:
-                    jogada['rank'] -= 2
+                    jogada['rank'] -= 1
+            self.salvar_jogada(jogada['rank'], jogada['tabuleiro'], jogada['posicao'])
         self.atualizar_jogada_no_csv()
         self.jogadas_partida = []
 

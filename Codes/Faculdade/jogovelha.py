@@ -161,7 +161,7 @@ def resultado_jogo():
 
 
 def relatorio_partida(tabuleiro, num_partida, resultado):
-    global contador_vitoria1, contador_vitoria2, contador_empate, ultima_derrota1, ultima_derrota2
+    global contador_vitoria1, contador_vitoria2, contador_empate
     add = []
     if resultado == 0:
         contador_empate += 1
@@ -178,8 +178,6 @@ def relatorio_partida(tabuleiro, num_partida, resultado):
     add.append(contador_vitoria1)
     add.append(contador_empate)
     add.append(contador_vitoria2)
-    add.append(ultima_derrota1)
-    add.append(ultima_derrota2)
     return add
 
 
@@ -374,8 +372,7 @@ tabuleiro = zerar_tabuleiro()
 contador_vitoria1 = 0
 contador_vitoria2 = 0
 contador_empate = 0
-ultima_derrota1 = 0
-ultima_derrota2 = 0
+
 
 print("Modos de Jogo:\n1 - Jogador VS Jogador\n2 - Jogador VS CPU\n3 - CPU VS CPU")
 while main(int(input("Insira a opção:"))):
@@ -386,8 +383,7 @@ print(relatorio)
 with open('relatorio.csv', mode='w', newline='') as file:
     campos_header = [
         'Numero da Partida', 'Tabuleiro', 'Resultado',
-        'Vitoria do Primeiro', 'Velha', 'Vitoria do Segundo',
-        'ultima derrota do primeiro','ultima derrota do segundo'
+        'Vitoria do Primeiro', 'Velha', 'Vitoria do Segundo'
     ]
     writer = csv.DictWriter(file, fieldnames=campos_header)
 
@@ -400,6 +396,4 @@ with open('relatorio.csv', mode='w', newline='') as file:
             'Vitoria do Primeiro': relatorio[i][3],
             'Velha': relatorio[i][4],
             'Vitoria do Segundo': relatorio[i][5],
-            'ultima derrota do primeiro': relatorio[i][6],
-            'ultima derrota do segundo': relatorio[i][7]
         })
