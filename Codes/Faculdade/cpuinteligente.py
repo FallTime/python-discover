@@ -1,7 +1,6 @@
 from random import choice
 import csv
 
-
 class CpuInteligente:
     def __init__(self, csv_file):
         self.csv_file = csv_file
@@ -18,7 +17,7 @@ class CpuInteligente:
                         continue
                     jogadas.append({
                         'rank': int(row[0]),
-                        'tabuleiro': list(map(int, row[1].strip('[]').split(', '))),
+                        'tabuleiro': list(map(int, row[1].strip('[]').split(','))),
                         'posicao': int(row[2])
                     })
         except FileNotFoundError:
@@ -30,6 +29,7 @@ class CpuInteligente:
             if jogada['tabuleiro'] == tabuleiro and jogada['posicao'] == posicao:
                 jogada['rank'] = rank
                 return  # Não adiciona jogada duplicada
+
         self.database.append({'rank': rank, 'tabuleiro': tabuleiro, 'posicao': posicao})
 
     def escolher_jogada(self, tabuleiro):
@@ -37,7 +37,8 @@ class CpuInteligente:
             if jogada['tabuleiro'] == tabuleiro and jogada['rank'] > 0:
                 self.jogadas_partida.append(jogada)
                 return jogada['posicao']
-        posicoes_disponiveis = [i for i in range(1, 10) if tabuleiro[i-1] == 0]
+
+        posicoes_disponiveis = [i for i in range(1, 10) if tabuleiro[i - 1] == 0]
         jogada_aleatoria = choice(posicoes_disponiveis)
         self.salvar_jogada(0, tabuleiro, jogada_aleatoria)
         self.jogadas_partida.append({'rank': 0, 'tabuleiro': tabuleiro, 'posicao': jogada_aleatoria})
@@ -55,8 +56,9 @@ class CpuInteligente:
                     jogada['rank'] += 1
                 elif resultado == -1:
                     jogada['rank'] -= 1
+
             self.salvar_jogada(jogada['rank'], jogada['tabuleiro'], jogada['posicao'])
-        self.atualizar_jogada_no_csv()
+
         self.jogadas_partida = []
 
     def atualizar_jogada_no_csv(self):
@@ -64,4 +66,16 @@ class CpuInteligente:
             writer = csv.writer(file)
             writer.writerow(['rank', 'tabuleiro', 'posicao'])
             for jogada in sorted(self.database, key=lambda x: x['rank'], reverse=True):
-                writer.writerow([jogada['rank'], jogada['tabuleiro'], jogada['posicao']])
+                if jogada['rank'] >= 0:
+                    writer.writerow([jogada['rank'], jogada['tabuleiro'], jogada['posicao']])
+
+
+# Exemplo de uso
+if __name__ == "__main__":
+    with open('databaseO.csv', mode='w', newline='') as file:
+        writer = csv.writer(file)
+        writer.writerow(['rank', 'tabuleiro', 'posicao'])
+
+    with open('databaseX.csv', mode='w', newline='') as file:
+        writer = csv.writer(file)
+        writer.writerow(['rank', 'tabuleiro', 'posicao'])
