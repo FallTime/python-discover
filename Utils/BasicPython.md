@@ -208,33 +208,110 @@ for i in range(10):
                     # index in the range
 ~~~
 
-Names in the target list are not deleted when the loop is finished, but if the sequence is empty, they will not have been assigned to at all by the loop. Hint: the built-in type range() represents immutable arithmetic sequences of integers. For instance, iterating range(3) successively yields 0, 1, and then 2.
+Names in the target list are not deleted when the loop is finished, but if the sequence is empty, they will not have been assigned to at all by the loop.
+
+Hint: the built-in type range() represents immutable arithmetic sequences of integers. For instance, iterating range(3) successively yields 0, 1 and then 2.
 
 ## Python Collections (Arrays)
 There are four collection data types in the Python programming language:
 
-1. `List` is a collection which is ordered and changeable. Allows duplicate members.
+1. `List` is a collection which is ordered and changeable. Allows duplicate members. 
+The items are indexed, the first item has index [0], the second item has index [1] etc.
+To create a list in python, you will use square brackets, as in the example below.
+<br></br>
 
 How implement:
 ```python
-mylist = ["banana","apple","grape"]
+mylist = ["banana", "apple", "grape"]
 ```
 
-2. `Tuple` is a collection which is ordered and unchangeable. Allows duplicate members.
+can also be implemented using the constructor:
+
+```python
+mylist = list(("banana", "apple", "grape"))  
+# list([iterable])
+```
+
+<br></br>
+When we say that lists are ordered, changeable, and allow duplicates, it means that the items have a set order and that order will not change, since when adding new items to a list, the new items will be placed at the end of the list.
+Being changeable means that we can change, add, and remove items in a list after it has been created.
+Allowing duplicates in a list comes because it is indexed, so we can have two items with the same value and different indexes.
+<br></br>
+
+2. `Tuple` is a collection which is ordered and unchangeable. Allows duplicate members. To create a tuple in python, you will use round brackets, as in the example below.
+<br></br>
 
 How implement:
 ```python
-mytuple = ("banana","apple","grape")
+mytuple = ("banana", "apple", "grape")
 ```
 
-3. `Set` is a collection which is unordered, unchangeable ( but can remove for replace ) and unindexed. No duplicate members.
+can also be implemented using the constructor:
+```python
+mytuple = tuple(("banana", "apple", "grape"))
+# tuple([iterable])
+```
+
+can also create a tuple with one element:
+```python
+mytuple = tuple([5])  # tuple([iterable]), the argument need to be iterable
+mytuple = tuple(5)  # It won't work, since 5 is int and not an iterable element
+mytuple = (5,)  # trailing comma with delimiter
+mytuple = 5,  # no delimiter
+```
+
+<b>Why use that?</b>
+
+It is usually used as an argument passed to a function or return from it, when that argument needs to be a tuple.
+
+```python
+def process_states(states):
+    for state in states:
+        print(f"Processing state: {state}")
+
+# Passing a single state as a tuple
+single_state = ("California",)
+process_states(single_state)
+```
+<b>Tuple Unpacking</b>
+```python
+my_tuple = ("New York",)
+city, = my_tuple
+print(city)  # Output: "New York"
+```
+<br></br>
+
+
+3. `Set` is a collection which is unordered, mutable (it's the correct term since we don't change the elements) and unindexed.
+Because it is unindexed, it does not allow duplicates. To create a set in python, you will use Braces, as in the example below.
+<br></br>
 
 How implement:
 ```python
-myset = {"banana","apple","grape"}
+myset = {"a", "b", "c"}
+print(myset)   
+# Output: {'a', 'b', 'c'}, {'a', 'c', 'b'}, {'b', 'a', 'c'},
+# {'b', 'c', 'a'}, {'c', 'a', 'b'}, {'c', 'b', 'a'}
+# In this case it assumes one of these values during set assignment, just one.
 ```
 
-4. `Dictionary` are used to store data values in `key:value pairs` in a collection which is ordered ( in actual versions ) and changeable. No duplicate members.
+can also be implemented using the constructor:
+```python
+myset = set(("a", "b", "c")) 
+# set([iterable])
+```
+
+Sets are good for working with numbers, because in these cases it tends to have an increasing ordering of elements, this comes from the hashing algorithm used in the construction of a set, so much so that numerical ordering only makes sense in adjacent numbers or with a short distance, due to the dispersion in the hashtable.
+
+```python
+myset = {12, 60, 15, 15, 10, 10, 4, 4, 4, 1, 2, 3, 77}
+print(myset)
+# Output : {1, 2, 3, 4, 10, 12, 77, 15, 60}
+# The initial of set is ordened but is final not
+```
+<br></br>
+
+4. `Dictionary` are used to store data values in `key:value pairs` in a collection which is ordered ( in actual versions, python 3.7+ ) and changeable. No duplicate members.
 
 How implement:
 ```python
@@ -392,8 +469,10 @@ print(text.substitute(name = "Arthur"))
 ## References
 - [W3schools tutorial python](https://www.w3schools.com/python/default.asp)
 - [documentation of lexical analysis in python.org](https://docs.python.org/3/reference/lexical_analysis.html)
+- [documentation of built-in Types](https://docs.python.org/3/library/stdtypes.html#)
 - [documentation string formatting](https://docs.python.org/3/library/stdtypes.html#printf-style-string-formatting)
 - [Article "Python String Formatting Best Practices"](https://realpython.com/python-string-formatting/)
+- [Article "How to Create a Python Tuple with One Element?"](https://pythonguides.com/create-a-python-tuple-with-one-element/)
 - [Content about operators in Python](https://www.geeksforgeeks.org/python-operators/)
 - [Content about Control Flow Statements](https://www.educative.io/answers/what-are-control-flow-statements-in-python)
 - [Compound Statements documentation](https://docs.python.org/3/reference/compound_stmts.html)
