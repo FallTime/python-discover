@@ -13,6 +13,7 @@ Com o objetivo de promover aprendizado sobre Python, utilizarei esse repositóri
 ### Livros Utilizados
 - [Python How to Program](https://www.amazon.com.br/Python-How-Program-Harvey-Deitel/dp/0130923613/ref=sr_1_11?__mk_pt_BR=%C3%85M%C3%85%C5%BD%C3%95%C3%91&crid=3OTUQKQKXGHP4&keywords=python+how&qid=1702740483&s=books&sprefix=python+how%2Cstripbooks%2C217&sr=1-11)
 - [6 em 1 - Coleção Python do ZERO às Redes Neurais Artificiais](https://www.amazon.com.br/Cole%C3%A7%C3%A3o-Python-Redes-Neurais-Artificiais-ebook/dp/B08GNYSR2X/ref=sr_1_2?dib=eyJ2IjoiMSJ9.87s0bTHsFNwL64TxTcUoDXbjxq7Q_lZKy_jfqhi2zpH3IsabDi8IG1hhMcYNWkfXj5tNFSXHRIyrZxnhtG3j_BgeOsCclAV-mKdwWmPLiMGoL7BPTIIoyS8CzKp_yA04KscpkJLIUC-kNYml0jMCDBcKBD0UUAxrhQiZa09pdv-fgxpVtndz7IWZKpd9m8RvmJ8ModULE7-cHyHNrjOprJ5EokxeimPEBvaSSRV5HHT21ClWIO-875QbGR0kVDV3QbWnJRtUkoq3aptomcIzpm01wu-MpBixN3O4TNo5lv0.Mq5TD6uzvKxTC6DCcW6pGmPdT7XeStoEDFUCIp27YQk&dib_tag=se&keywords=COLET%26Acirc%3BNEA+PYTHON+DO+ZERO+%26Agrave%3BS+REDES+NEURAIS+ARTIFICIAIS&qid=1725389942&sr=8-2)
+- [Web Scraping com Python: Coletando Mais Dados da web Moderna](https://www.amazon.com.br/Web-Scraping-Com-Python-Coletando/dp/8575227300?ref_=ast_author_dp_rw&th=1&psc=1&dib=eyJ2IjoiMSJ9.MYXO9e0EpEA-JK-kiajvshadPmG2hHRfcvE6JqqYEIU_53Y7ZtuH4qbUB1Xku265CF0eb389H469EfKyF7DLbxMzv0qcBKDIZtsSm55El6XWapnYEIek36oc8Sn37h_sEGHFBJHfP7bAL9Zwq8Gdhg.U03hLsUeY4EW_uXPxicIIvdeShIa8TxaIrHcR2yds9A&dib_tag=AUTHOR)
 
 ### Sites Relacionados
 - [Python Documentation](https://www.python.org/doc/)
