@@ -1,0 +1,31 @@
+Projeto - Plano de Ação 3Corp
+Prezados,
+
+Solicito o levantamento técnico para a Regularização Técnica do parque tecnológico da Defensoria Pública. Nosso objetivo estratégico é eliminar a divergência dos ramais off-line, confrontando a base sistêmica com a realidade física de cada unidade.
+
+Diretrizes Obrigatórias para a Visita:
+
+Censo Total: Realize a contagem minuciosa de todos os aparelhos (ligados, desligados ou guardados em armários)
+
+Detalhamento por Pavimento: Caso a localidade possua mais de um andar, é obrigatório estipular no chamado o quantitativo total de ramais por pavimento.
+
+Atualização em Tempo Real: O preenchimento e envio do formulário deve ocorrer no ato da visita para garantir a integridade dos dados.
+
+Preencher com os seguintes dados:
+
+EQUIPAMENTOS
+QUANTIDADE
+TOTAL DE APARELHOS TIPO 1
+TOTAL DE APARELHOS TIPO 2
+TOTAL DE APARELHOS ENCONTRADOS DESLIGADOS OU GUARDADOS
+TOTAL GERAL DE APARELHOS
+
+O técnico deve realizar responder obrigatoriamente ao formulário eletrônico disponível em:
+
+https://forms.gle/htxufBF8D5py5gto6
+
+Observações Gerais:
+
+Técnico Responsável:
+
+Sua precisão é fundamental para a segurança jurídica e a eficiência dos serviços da Defensoria. Contamos com você!
